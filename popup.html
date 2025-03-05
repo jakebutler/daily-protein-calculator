@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Daily Protein Calculator</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div class="container">
+    <h1>Daily Protein Calculator</h1>
+    
+    <div class="input-group">
+      <span class="input-group-label">Age</span>
+      <input type="number" id="age" min="1" max="999" required>
+    </div>
+    <span class="error" id="age-error"></span>
+    
+    <div class="input-group">
+      <span class="input-group-label">Gender</span>
+      <select id="gender" class="gender-select" required>
+        <option value="" disabled selected>Select gender</option>
+        <option value="male">Male</option>
+        <option value="female">Female</option>
+      </select>
+    </div>
+    <span class="error" id="gender-error"></span>
+    
+    <div class="input-group">
+      <span class="input-group-label">Height</span>
+      <input type="number" id="height-inches" min="0" required>
+    </div>
+    <span class="error" id="height-error"></span>
+    
+    <div class="input-group">
+      <span class="input-group-label">Weight</span>
+      <div class="weight-field">
+        <input type="number" id="weight" min="1" required>
+        <span>lbs</span>
+      </div>
+    </div>
+    <span class="error" id="weight-error"></span>
+    
+    <button id="calculate-btn">Calculate</button>
+    
+    <div id="result-container" class="hidden">
+      <h2>Your Result</h2>
+      <div id="result"></div>
+      <div id="explanation"></div>
+    </div>
+  </div>
+  
+  <script src="popup.js"></script>
+</body>
+</html>
