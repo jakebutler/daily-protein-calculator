@@ -15,16 +15,6 @@
     <span class="error" id="age-error"></span>
     
     <div class="input-group">
-      <span class="input-group-label">Gender</span>
-      <select id="gender" class="gender-select" required>
-        <option value="" disabled selected>Select gender</option>
-        <option value="male">Male</option>
-        <option value="female">Female</option>
-      </select>
-    </div>
-    <span class="error" id="gender-error"></span>
-    
-    <div class="input-group">
       <span class="input-group-label">Height</span>
       <input type="number" id="height-inches" min="0" required>
     </div>
@@ -38,6 +28,16 @@
       </div>
     </div>
     <span class="error" id="weight-error"></span>
+    
+    <div class="input-group">
+      <span class="input-group-label">Gender</span>
+      <select id="gender" class="gender-select" required>
+        <option value="" disabled selected>Select gender</option>
+        <option value="male">Male</option>
+        <option value="female">Female</option>
+      </select>
+    </div>
+    <span class="error" id="gender-error"></span>
     
     <button id="calculate-btn">Calculate</button>
     

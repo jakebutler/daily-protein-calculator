@@ -56,7 +56,14 @@ document.addEventListener('DOMContentLoaded', function() {
     const proteinHighAdjusted = Math.round(proteinHigh * seniorMultiplier);
     
     // Display result
-    resultDiv.textContent = `${proteinLowAdjusted}-${proteinHighAdjusted} grams of protein per day`;
+    if (age > 65) {
+      // Show both with and without senior multiplier
+      const proteinLowRounded = Math.round(proteinLow);
+      const proteinHighRounded = Math.round(proteinHigh);
+      resultDiv.textContent = `${proteinLowRounded}-${proteinHighRounded} grams of protein per day or ${proteinLowAdjusted}-${proteinHighAdjusted} grams of protein per day with the 1.1x senior multiplier.`;
+    } else {
+      resultDiv.textContent = `${Math.round(proteinLow)}-${Math.round(proteinHigh)} grams of protein per day`;
+    }
     
     // Create explanation
     let explanation = `Based on your weight (${weight} lbs / ${weightKg.toFixed(1)} kg), `;
