@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Daily Protein Calculator</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div class="container">
+    <h1>Daily Protein Calculator</h1>
+    
+    <div class="input-group">
+      <span class="input-group-label">Age</span>
+      <input type="number" id="age" min="1" max="999" required>
+    </div>
+    <span class="error" id="age-error"></span>
+    
+    <div class="input-group">
+      <span class="input-group-label">Gender</span>
+      <select id="gender" class="gender-select" required>
+        <option value="" disabled selected>Select gender</option>
+        <option value="male">Male</option>
+        <option value="female">Female</option>
+      </select>
+    </div>
+    <span class="error" id="gender-error"></span>
+    
+    <div class="input-group">
+      <span class="input-group-label">Height</span>
+      <div class="height-field">
+        <input type="number" id="feet" min="0" required>
+        <span>ft</span>
+        <input type="number" id="inches" min="0" max="11" required>
+        <span>in</span>
+      </div>
+    </div>
+    <span class="error" id="height-error"></span>
+    
+    <div class="input-group">
+      <span class="input-group-label">Weight</span>
+      <div class="weight-field">
+        <input type="number" id="weight" min="1" required>
+        <span>lbs</span>
+      </div>
+    </div>
+    <span class="error" id="weight-error"></span>
+    
+    <div class="input-group">
+      <span class="input-group-label">Activity level</span>
+      <select id="activity" class="activity-select" required>
+        <option value="" disabled selected>Select activity level</option>
+        <option value="sedentary">Sedentary (little or no exercise)</option>
+        <option value="light">Light (exercise 1-3 times per week)</option>
+        <option value="moderate">Moderate (exercise 4-5 times per week)</option>
+        <option value="active">Active (daily exercise or intense exercise 4-5 times per week)</option>
+        <option value="very-active">Very active (intense exercise 6-7 times per week)</option>
+      </select>
+    </div>
+    <span class="error" id="activity-error"></span>
+    
+    <button id="calculate-btn">Calculate</button>
+    
+    <div id="result-container" class="hidden">
+      <h2>Your Result</h2>
+      <div id="result"></div>
+      <div id="explanation"></div>
+    </div>
+  </div>
+  
+  <script src="popup.js"></script>
+</body>
+</html>
