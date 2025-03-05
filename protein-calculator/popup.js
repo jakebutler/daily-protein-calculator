@@ -2,10 +2,8 @@ document.addEventListener('DOMContentLoaded', function() {
   // Get form elements
   const ageInput = document.getElementById('age');
   const genderSelect = document.getElementById('gender');
-  const feetInput = document.getElementById('feet');
-  const inchesInput = document.getElementById('inches');
+  const heightInput = document.getElementById('height-inches');
   const weightInput = document.getElementById('weight');
-  const activitySelect = document.getElementById('activity');
   const calculateBtn = document.getElementById('calculate-btn');
   const resultContainer = document.getElementById('result-container');
   const resultDiv = document.getElementById('result');
@@ -16,25 +14,6 @@ document.addEventListener('DOMContentLoaded', function() {
   const genderError = document.getElementById('gender-error');
   const heightError = document.getElementById('height-error');
   const weightError = document.getElementById('weight-error');
-  const activityError = document.getElementById('activity-error');
-  
-  // Activity level multipliers
-  const activityMultipliers = {
-    'sedentary': 1.0,
-    'light': 1.1,
-    'moderate': 1.2,
-    'active': 1.3,
-    'very-active': 1.4
-  };
-  
-  // Format activity level for display
-  const activityLabels = {
-    'sedentary': 'Sedentary',
-    'light': 'Light',
-    'moderate': 'Moderate',
-    'active': 'Active',
-    'very-active': 'Very Active'
-  };
   
   // Calculate button click handler
   calculateBtn.addEventListener('click', function() {
@@ -49,28 +28,45 @@ document.addEventListener('DOMContentLoaded', function() {
     // Get input values
     const age = parseInt(ageInput.value);
     const gender = genderSelect.value;
+    const heightInches = parseFloat(heightInput.value);
     const weight = parseFloat(weightInput.value);
-    const activityLevel = activitySelect.value;
     
-    // Calculate daily protein needs
-    const weightInKg = weight / 2.2;
-    const activityMultiplier = activityMultipliers[activityLevel];
-    const seniorMultiplier = age > 65 ? 1.1 : 1.0;
-    
-    const dailyProtein = (weightInKg * 0.8 * activityMultiplier) * seniorMultiplier;
-    
-    // Display result
-    resultDiv.textContent = `${dailyProtein.toFixed(1)} grams of protein per day`;
-    
-    // Create explanation
-    let explanation = `Based on your weight (${weight} lbs / ${weightInKg.toFixed(1)} kg), `;
-    explanation += `${activityLabels[activityLevel]} activity level (${activityMultiplier}x multiplier)`;
-    
-    if (age > 65) {
-      explanation += `, and senior age (1.1x multiplier)`;
+    // Calculate Ideal Body Weight (IBW)
+    let ibw;
+    if (gender === 'male') {
+      ibw = 50 + (2.3 * Math.max(0, heightInches - 60));
+    } else {
+      ibw = 45.5 + (2.3 * Math.max(0, heightInches - 60));
     }
     
-    explanation += `, your recommended daily protein intake is ${dailyProtein.toFixed(1)} grams.`;
+    // Convert weights to kg
+    const weightKg = weight / 2.2;
+    const ibwKg = ibw;
+    
+    // Calculate Adjusted Body Weight (ABW)
+    const abw = ibwKg + (0.4 * (weightKg - ibwKg));
+    
+    // Calculate protein range (1.2-1.5 g/kg)
+    const proteinLow = abw * 1.2;
+    const proteinHigh = abw * 1.5;
+    
+    // Apply senior multiplier if age > 65
+    const seniorMultiplier = age > 65 ? 1.1 : 1.0;
+    const proteinLowAdjusted = Math.round(proteinLow * seniorMultiplier);
+    const proteinHighAdjusted = Math.round(proteinHigh * seniorMultiplier);
+    
+    // Display result
+    resultDiv.textContent = `${proteinLowAdjusted}-${proteinHighAdjusted} grams of protein per day`;
+    
+    // Create explanation
+    let explanation = `Based on your weight (${weight} lbs / ${weightKg.toFixed(1)} kg), `;
+    explanation += `the adjusted body weight is ${(abw * 2.2).toFixed(1)} lbs / ${abw.toFixed(1)} kg`;
+    
+    if (age > 65) {
+      explanation += `, and a 1.1x senior multiplier has been applied.`;
+    } else {
+      explanation += `.`;
+    }
     
     explanationDiv.textContent = explanation;
     resultContainer.classList.remove('hidden');
@@ -96,11 +92,11 @@ document.addEventListener('DOMContentLoaded', function() {
     }
     
     // Validate height
-    if (!feetInput.value && !inchesInput.value) {
-      heightError.textContent = 'Please enter your height';
+    if (!heightInput.value) {
+      heightError.textContent = 'Please enter your height in inches';
       isValid = false;
-    } else if (parseInt(inchesInput.value) > 11) {
-      heightError.textContent = 'Inches must be between 0 and 11';
+    } else if (parseFloat(heightInput.value) < 0) {
+      heightError.textContent = 'Height must be a positive number';
       isValid = false;
     }
     
@@ -113,12 +109,6 @@ document.addEventListener('DOMContentLoaded', function() {
       isValid = false;
     }
     
-    // Validate activity level
-    if (!activitySelect.value) {
-      activityError.textContent = 'Please select your activity level';
-      isValid = false;
-    }
-    
     return isValid;
   }
   
@@ -128,6 +118,5 @@ document.addEventListener('DOMContentLoaded', function() {
     genderError.textContent = '';
     heightError.textContent = '';
     weightError.textContent = '';
-    activityError.textContent = '';
   }
 });

@@ -8,39 +8,39 @@
 body {
   width: 310px;
   padding: 20px;
-  background-color: #fdf6e3;
+  background-color: #fff; /* Changed from #fdf6e3 to match image background */
 }
 
 .container {
   display: flex;
   flex-direction: column;
-  gap: 8px;
+  gap: 12px; /* Increased spacing */
 }
 
 h1 {
-  font-size: 22px;
+  font-size: 20px;
   margin-bottom: 15px;
   color: #000;
   font-weight: bold;
+  text-align: center; /* Centered title */
 }
 
 .input-group {
   display: flex;
-  flex-direction: row;
-  align-items: center;
-  gap: 10px;
-  margin-bottom: 5px;
+  align-items: center; /* Vertically align labels and inputs */
+  margin-bottom: 10px;
 }
 
 .input-group-label {
-  min-width: 80px;
+  flex: 0 0 80px; /* Fixed width for labels */
   font-size: 16px;
   font-weight: normal;
   color: #000;
-  display: block;
+  text-align: left; /* Ensure left alignment */
 }
 
 input, select {
+  flex-grow: 1;
   padding: 8px;
   border: 1px solid #ccc;
   border-radius: 2px;
@@ -53,43 +53,24 @@ input:focus, select:focus {
   border-color: #4285f4;
 }
 
-.height-field {
+.weight-field, .height-field {
   display: flex;
   align-items: center;
+  flex-grow: 1;
 }
 
-.height-field input {
-  width: 60px;
+.weight-field input, .height-field input {
+  flex-grow: 1;
 }
 
-.height-field span {
-  margin: 0 5px 0 2px;
-}
-
-.weight-field {
-  display: flex;
-  align-items: center;
-}
-
-.weight-field input {
-  width: 120px;
-}
-
-.weight-field span {
+.weight-field span, .height-field span {
   margin-left: 5px;
+  color: #888;
 }
 
 select {
   -webkit-appearance: menulist;
   appearance: menulist;
-}
-
-.gender-select {
-  width: 150px;
-}
-
-.activity-select {
-  width: 270px;
 }
 
 button {
@@ -115,6 +96,7 @@ button:hover {
   font-size: 12px;
   min-height: 15px;
   margin-top: 2px;
+  margin-left: 80px; /* Align with input fields */
 }
 
 #result-container {
